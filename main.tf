@@ -68,8 +68,8 @@ resource "aws_security_group" "aura-library_sg" {
 }
 
 resource "aws_key_pair" "aura-library_key" {
-    key_name   = "aura-library-key-v4"
-    public_key = file("f:/file/devops/aura-library/aura-library-key-v4.pub")
+    key_name   = "aura-library-key-v1"
+    public_key = file("f:/file/devops/aura-library-1/aura-library-key-v1.pub")
 }
 
 resource "aws_instance" "aura-library_key" {
