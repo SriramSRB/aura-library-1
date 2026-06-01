@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: aura-library-container
-          image: sriramsrb/aura-library:latest
+          image: sriramsrb/aura-library-1:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
