@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA Library — இலக்கிய உலகம்</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&family=Noto+Serif+Tamil:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --ink: #0f0f0f;
+      --gold: #b8860b;
+      --gold-light: #d4a017;
+      --gold-pale: #f5edd6;
+      --grey-soft: #f8f6f2;
+      --grey-mid: #e8e4dc;
+      --grey-text: #6b6560;
+      --radius: 4px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid var(--grey-mid);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4rem; height: 70px;
+      transition: var(--transition);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; font-weight: 900; letter-spacing: -0.03em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; text-decoration: none; color: var(--grey-text);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-actions { display: flex; gap: 1rem; align-items: center; }
+
+    .lang-switcher {
+      display: flex; gap: 0.4rem;
+    }
+    .lang-btn {
+      background: none; border: 1px solid var(--grey-mid);
+      padding: 0.3rem 0.7rem; border-radius: 2px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em;
+      cursor: pointer; color: var(--grey-text);
+      transition: all var(--transition);
+    }
+    .lang-btn.active, .lang-btn:hover {
+      background: var(--ink); color: var(--white); border-color: var(--ink);
+    }
+
+    .btn-search {
+      background: none; border: none; cursor: pointer; padding: 0.5rem;
+      color: var(--ink); font-size: 1.1rem; transition: color var(--transition);
+    }
+    .btn-search:hover { color: var(--gold); }
+
+    .btn-primary {
+      background: var(--ink); color: var(--white);
+      border: none; padding: 0.6rem 1.4rem;
+      font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; transition: background var(--transition);
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold); }
+
+    .btn-outline {
+      background: none; color: var(--ink);
+      border: 1.5px solid var(--ink); padding: 0.6rem 1.4rem;
+      font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; transition: all var(--transition);
+      text-decoration: none; display: inline-block;
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--white); }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      background: var(--grey-soft);
+      position: relative; overflow: hidden;
+    }
+
+    #hero::before {
+      content: 'AURA';
+      position: absolute; right: -2rem; bottom: -3rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 20rem; font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--grey-mid);
+      pointer-events: none; z-index: 0; line-height: 1;
+    }
+
+    .hero-text { position: relative; z-index: 2; }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+      border: 1px solid var(--gold); padding: 0.3rem 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 900; line-height: 1.08;
+      letter-spacing: -0.03em; margin-bottom: 0.6rem;
+    }
+    .hero-title-tamil {
+      font-family: 'Noto Serif Tamil', serif;
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      font-weight: 700; color: var(--gold);
+      margin-bottom: 1.5rem; display: block;
+    }
+    .hero-sub {
+      font-size: 1.05rem; font-weight: 300; line-height: 1.7;
+      color: var(--grey-text); max-width: 480px; margin-bottom: 2.5rem;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 3.5rem;
+      padding-top: 2rem; border-top: 1px solid var(--grey-mid);
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: var(--ink);
+    }
+    .stat-lbl {
+      font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--grey-text); margin-top: 0.2rem;
+    }
+
+    /* Hero Book Stack */
+    .hero-visual {
+      position: relative; z-index: 2;
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    .book-stack {
+      position: relative; width: 340px; height: 480px;
+    }
+    .book-card {
+      position: absolute;
+      width: 200px; height: 290px;
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      transition: transform 0.4s ease;
+    }
+    .book-card img { width: 100%; height: 100%; object-fit: cover; }
+    .book-card:nth-child(1) { top: 0; left: 0; transform: rotate(-6deg); z-index: 1; }
+    .book-card:nth-child(2) { top: 40px; left: 70px; transform: rotate(2deg); z-index: 2; }
+    .book-card:nth-child(3) { top: 80px; left: 140px; transform: rotate(8deg); z-index: 3; }
+    .book-stack:hover .book-card:nth-child(1) { transform: rotate(-10deg) translateX(-20px); }
+    .book-stack:hover .book-card:nth-child(3) { transform: rotate(12deg) translateX(20px); }
+
+    /* ── MARQUEE ─────────────────────────────────────────── */
+    .marquee-wrap {
+      overflow: hidden; background: var(--ink); color: var(--white);
+      padding: 1rem 0;
+    }
+    .marquee-track {
+      display: flex; gap: 3rem; white-space: nowrap;
+      animation: marquee 30s linear infinite;
+    }
+    .marquee-item {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; opacity: 0.7;
+    }
+    .marquee-dot { color: var(--gold); margin: 0 1rem; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTION STYLES ──────────────────────────────────── */
+    section { padding: 6rem 4rem; }
+
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.02em; margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1rem; color: var(--grey-text); line-height: 1.7;
+      max-width: 600px; margin-bottom: 3rem;
+    }
+
+    /* ── FEATURED BOOKS GRID ─────────────────────────────── */
+    #featured { background: var(--white); }
+
+    .books-filter {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      padding: 0.45rem 1.1rem; border-radius: 2px;
+      border: 1.5px solid var(--grey-mid); background: none;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; cursor: pointer; color: var(--grey-text);
+      transition: all var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--ink); color: var(--white); border-color: var(--ink);
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .book-item {
+      cursor: pointer; transition: transform var(--transition);
+    }
+    .book-item:hover { transform: translateY(-6px); }
+
+    .book-cover {
+      width: 100%; aspect-ratio: 3/4;
+      overflow: hidden; position: relative;
+      border-radius: 2px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    .book-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .book-item:hover .book-cover img { transform: scale(1.04); }
+
+    .book-badge {
+      position: absolute; top: 0.6rem; left: 0.6rem;
+      background: var(--gold); color: var(--white);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.2rem 0.5rem;
+    }
+
+    .book-overlay {
+      position: absolute; inset: 0;
+      background: rgba(15,15,15,0.75);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.7rem;
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .book-item:hover .book-overlay { opacity: 1; }
+
+    .overlay-btn {
+      background: var(--white); color: var(--ink);
+      border: none; padding: 0.5rem 1.2rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer; width: 80%;
+      transition: background var(--transition);
+    }
+    .overlay-btn:hover { background: var(--gold); color: var(--white); }
+    .overlay-btn.dl { background: var(--gold); color: var(--white); }
+    .overlay-btn.dl:hover { background: var(--white); color: var(--ink); }
+
+    .book-meta { margin-top: 1rem; }
+    .book-lang {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem;
+    }
+    .book-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem; font-weight: 700; line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+    .book-author { font-size: 0.78rem; color: var(--grey-text); }
+
+    /* ── CATEGORIES ──────────────────────────────────────── */
+    #categories { background: var(--grey-soft); }
+
+    .cat-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .cat-card {
+      position: relative; overflow: hidden; border-radius: 3px;
+      height: 200px; cursor: pointer;
+    }
+    .cat-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease; filter: brightness(0.65);
+    }
+    .cat-card:hover img { transform: scale(1.06); }
+    .cat-info {
+      position: absolute; inset: 0; padding: 1.5rem;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .cat-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700; color: var(--white);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .cat-count {
+      font-size: 0.75rem; color: rgba(255,255,255,0.7);
+      letter-spacing: 0.06em; margin-top: 0.3rem;
+    }
+
+    /* ── TAMIL SPOTLIGHT ─────────────────────────────────── */
+    #tamil {
+      background: var(--ink); color: var(--white);
+    }
+    #tamil .section-title { color: var(--white); }
+    #tamil .section-desc { color: rgba(255,255,255,0.6); }
+    #tamil .section-label { color: var(--gold); }
+
+    .tamil-scroll-container { position: relative; }
+    .tamil-scroll {
+      display: flex; gap: 1.5rem; overflow-x: auto;
+      padding-bottom: 1.5rem; scroll-snap-type: x mandatory;
+      scrollbar-width: thin; scrollbar-color: var(--gold) rgba(255,255,255,0.1);
+    }
+    .tamil-scroll::-webkit-scrollbar { height: 3px; }
+    .tamil-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); }
+    .tamil-scroll::-webkit-scrollbar-thumb { background: var(--gold); }
+
+    .tamil-book {
+      flex: 0 0 180px; scroll-snap-align: start;
+    }
+    .tamil-cover {
+      width: 180px; height: 250px; overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .tamil-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .tamil-meta { margin-top: 0.8rem; }
+    .tamil-title {
+      font-family: 'Noto Serif Tamil', serif;
+      font-size: 0.88rem; font-weight: 600; color: var(--white); line-height: 1.4;
+    }
+    .tamil-author { font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
+    .tamil-dl {
+      margin-top: 0.6rem; background: none;
+      border: 1px solid var(--gold); color: var(--gold);
+      padding: 0.3rem 0.8rem; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+      transition: all var(--transition); width: 100%;
+    }
+    .tamil-dl:hover { background: var(--gold); color: var(--ink); }
+
+    /* ── READER EXPERIENCE ───────────────────────────────── */
+    #experience {
+      background: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .exp-visual {
+      position: relative; height: 550px;
+    }
+    .exp-img-main {
+      width: 75%; height: 420px; object-fit: cover;
+      border-radius: 3px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.14);
+      position: absolute; top: 0; right: 0;
+    }
+    .exp-img-accent {
+      width: 55%; height: 250px; object-fit: cover;
+      border-radius: 3px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+      position: absolute; bottom: 0; left: 0;
+      border: 5px solid var(--white);
+    }
+    .exp-badge {
+      position: absolute; top: 50%; left: 0; transform: translateY(-50%);
+      background: var(--gold); color: var(--white);
+      padding: 1.2rem 1rem; text-align: center; z-index: 3;
+      box-shadow: 0 8px 24px rgba(184,134,11,0.4);
+    }
+    .exp-badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 900; display: block;
+    }
+    .exp-badge-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .features-list { list-style: none; margin-top: 2rem; }
+    .feat-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 0; border-bottom: 1px solid var(--grey-mid);
+    }
+    .feat-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      overflow: hidden; border-radius: 2px;
+    }
+    .feat-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .feat-title { font-weight: 700; margin-bottom: 0.3rem; }
+    .feat-desc { font-size: 0.85rem; color: var(--grey-text); line-height: 1.5; }
+
+    /* ── NEW ARRIVALS ────────────────────────────────────── */
+    #new-arrivals { background: var(--grey-soft); }
+
+    .arrivals-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1.5rem;
+    }
+    .arrival-main {
+      position: relative; overflow: hidden; border-radius: 3px; height: 500px;
+    }
+    .arrival-main img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); transition: transform 0.5s ease; }
+    .arrival-main:hover img { transform: scale(1.03); }
+    .arrival-main-info {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    }
+    .arrival-main-tag {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.5rem;
+    }
+    .arrival-main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 700; color: var(--white); line-height: 1.2;
+    }
+
+    .arrival-side { display: flex; flex-direction: column; gap: 1.5rem; }
+    .arrival-card {
+      display: flex; gap: 1rem; align-items: center;
+      padding: 1rem; background: var(--white);
+      border-radius: 2px; transition: box-shadow var(--transition);
+    }
+    .arrival-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .arrival-thumb { width: 70px; height: 100px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
+    .arrival-info .book-lang { margin-bottom: 0.2rem; }
+    .arrival-info .book-name { font-size: 0.88rem; }
+
+    /* ── AUTHORS ─────────────────────────────────────────── */
+    #authors { background: var(--white); }
+
+    .authors-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 2rem;
+    }
+    .author-card { text-align: center; cursor: pointer; }
+    .author-photo {
+      width: 130px; height: 130px; border-radius: 50%; object-fit: cover;
+      margin: 0 auto 1rem;
+      border: 3px solid transparent;
+      transition: border-color var(--transition), transform var(--transition);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .author-card:hover .author-photo { border-color: var(--gold); transform: translateY(-4px); }
+    .author-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .author-books { font-size: 0.75rem; color: var(--grey-text); }
+    .author-lang {
+      display: inline-block; margin-top: 0.4rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gold);
+    }
+
+    /* ── PDF READER PREVIEW ──────────────────────────────── */
+    #reader-preview {
+      background: var(--ink); color: var(--white);
+      text-align: center; padding: 6rem 4rem;
+    }
+    #reader-preview .section-title { color: var(--white); }
+    #reader-preview .section-desc { color: rgba(255,255,255,0.6); margin: 0 auto 3rem; }
+
+    .preview-frame {
+      max-width: 900px; margin: 0 auto;
+      background: var(--grey-soft); border-radius: 4px;
+      overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
+    .preview-toolbar {
+      background: #1e1e1e; padding: 0.8rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .toolbar-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .toolbar-dot:nth-child(1) { background: #ff5f57; }
+    .toolbar-dot:nth-child(2) { background: #febc2e; }
+    .toolbar-dot:nth-child(3) { background: #28c840; }
+    .toolbar-title { margin-left: auto; font-size: 0.75rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+
+    .preview-pages {
+      display: flex; gap: 0; height: 480px; overflow: hidden;
+    }
+    .preview-page { flex: 1; overflow: hidden; }
+    .preview-page img { width: 100%; height: 100%; object-fit: cover; }
+
+    .preview-controls {
+      background: #1e1e1e; padding: 0.8rem 1.5rem;
+      display: flex; justify-content: center; align-items: center; gap: 1.5rem;
+    }
+    .ctrl-btn {
+      background: none; border: none; color: rgba(255,255,255,0.5);
+      cursor: pointer; font-size: 1.1rem; transition: color var(--transition);
+    }
+    .ctrl-btn:hover { color: var(--gold); }
+    .page-info { font-size: 0.78rem; color: rgba(255,255,255,0.4); letter-spacing: 0.08em; }
+
+    /* ── NEWSLETTER ──────────────────────────────────────── */
+    #newsletter { background: var(--gold-pale); padding: 5rem 4rem; }
+    .newsletter-inner {
+      max-width: 600px; margin: 0 auto; text-align: center;
+    }
+    .newsletter-inner .section-title { color: var(--ink); }
+    .newsletter-inner .section-desc { margin: 0 auto 2rem; }
+    .email-form { display: flex; gap: 0; max-width: 420px; margin: 0 auto; }
+    .email-input {
+      flex: 1; border: 1.5px solid var(--ink); border-right: none;
+      padding: 0.75rem 1rem; font-family: 'Lato', sans-serif;
+      font-size: 0.9rem; outline: none; background: var(--white);
+    }
+    .email-submit {
+      background: var(--ink); color: var(--white); border: none;
+      padding: 0.75rem 1.5rem;
+      font-family: 'Lato', sans-serif; font-size: 0.8rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; transition: background var(--transition);
+    }
+    .email-submit:hover { background: var(--gold); }
+
+    /* ── TESTIMONIALS ────────────────────────────────────── */
+    #testimonials { background: var(--white); }
+
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;
+    }
+    .testi-card {
+      padding: 2rem; border: 1px solid var(--grey-mid); border-radius: 3px;
+      transition: box-shadow var(--transition);
+    }
+    .testi-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+    .testi-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; line-height: 1; color: var(--gold); margin-bottom: 1rem;
+    }
+    .testi-text { font-size: 0.9rem; line-height: 1.7; color: var(--grey-text); margin-bottom: 1.5rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+    .testi-name { font-weight: 700; font-size: 0.85rem; }
+    .testi-role { font-size: 0.75rem; color: var(--grey-text); }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.7);
+      padding: 4rem; padding-bottom: 2rem;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand .nav-logo { color: var(--white); font-size: 1.5rem; }
+    .footer-brand p {
+      font-size: 0.85rem; line-height: 1.7; margin-top: 1rem; max-width: 280px;
+    }
+    .footer-heading {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.6rem; }
+    .footer-links a {
+      text-decoration: none; color: rgba(255,255,255,0.6);
+      font-size: 0.85rem; transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem; display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copy { font-size: 0.78rem; }
+    .footer-socials { display: flex; gap: 1.5rem; }
+    .footer-socials a { color: rgba(255,255,255,0.4); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: color var(--transition); }
+    .footer-socials a:hover { color: var(--gold); }
+
+    /* ── MODAL ───────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(15,15,15,0.85);
+      z-index: 9999; display: none; align-items: center; justify-content: center;
+      backdrop-filter: blur(6px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--white); border-radius: 4px;
+      max-width: 600px; width: 90%; padding: 2.5rem;
+      position: relative; animation: fadeUp 0.35s ease;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--grey-text);
+    }
+    .modal-cover { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .modal-cover-img { width: 120px; height: 170px; object-fit: cover; border-radius: 2px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .modal-cover-info .book-lang { font-size: 0.7rem; margin-bottom: 0.4rem; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .modal-author { color: var(--grey-text); font-size: 0.85rem; margin-bottom: 1rem; }
+    .modal-rating { color: var(--gold); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .modal-pages { font-size: 0.8rem; color: var(--grey-text); }
+    .modal-desc { font-size: 0.88rem; line-height: 1.7; color: var(--grey-text); margin-bottom: 1.5rem; }
+    .modal-actions { display: flex; gap: 0.8rem; }
+
+    /* ── SEARCH BAR ──────────────────────────────────────── */
+    .search-overlay {
+      position: fixed; inset: 0; background: rgba(255,255,255,0.97);
+      z-index: 10000; display: none; align-items: flex-start; justify-content: center;
+      padding-top: 15vh;
+    }
+    .search-overlay.open { display: flex; }
+    .search-inner { width: 90%; max-width: 700px; }
+    .search-bar {
+      display: flex; border-bottom: 2px solid var(--ink); padding-bottom: 1rem;
+    }
+    .search-input {
+      flex: 1; border: none; outline: none; font-family: 'Playfair Display', serif;
+      font-size: 2rem; background: none; color: var(--ink);
+    }
+    .search-close {
+      background: none; border: none; font-size: 1.5rem; cursor: pointer;
+      color: var(--grey-text); transition: color var(--transition);
+    }
+    .search-close:hover { color: var(--ink); }
+    .search-hint { margin-top: 1rem; font-size: 0.8rem; color: var(--grey-text); letter-spacing: 0.06em; }
+
+    /* ── ANIMATION ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      #hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+      .hero-visual { display: none; }
+      section { padding: 4rem 2rem; }
+      #experience { grid-template-columns: 1fr; gap: 2rem; }
+      .exp-visual { height: 300px; }
+      .arrivals-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .email-form { flex-direction: column; }
+      .email-input { border-right: 1.5px solid var(--ink); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-inner">
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="Search books, authors…" id="searchInput" />
+      <button class="search-close" onclick="toggleSearch()">✕</button>
+    </div>
+    <p class="search-hint">Try: "Ponniyin Selvan" · "Kamba Ramayanam" · "Tamil Novels" · "English Classics"</p>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="bookModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-cover">
+      <img id="modalImg" src="" alt="" class="modal-cover-img" />
+      <div class="modal-cover-info">
+        <div class="book-lang" id="modalLang"></div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-author" id="modalAuthor"></div>
+        <div class="modal-rating" id="modalRating"></div>
+        <div class="modal-pages" id="modalPages"></div>
+      </div>
+    </div>
+    <p class="modal-desc" id="modalDesc"></p>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="readBook()">Read Online</button>
+      <button class="btn-outline" onclick="downloadBook()" id="dlBtn">Download PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAVIGATION ─────────────────────────────────── -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#">AUR<span>A</span></a>
+  <ul class="nav-links">
+    <li><a href="#featured" data-i18n="nav_books">Books</a></li>
+    <li><a href="#categories" data-i18n="nav_categories">Categories</a></li>
+    <li><a href="#tamil" data-i18n="nav_tamil">Tamil Library</a></li>
+    <li><a href="#authors" data-i18n="nav_authors">Authors</a></li>
+    <li><a href="#newsletter" data-i18n="nav_about">About</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('ta')">தமிழ்</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('hi')">हि</button>
+    </div>
+    <button class="btn-search" onclick="toggleSearch()">&#9906;</button>
+    <a href="#featured" class="btn-primary" data-i18n="nav_browse">Browse</a>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-text reveal">
+    <div class="hero-tag" data-i18n="hero_tag">Digital Library Platform</div>
+    <h1 class="hero-title">Knowledge<br>Illuminated.</h1>
+    <span class="hero-title-tamil" data-i18n="hero_tamil">அறிவின் வெளிச்சம்</span>
+    <p class="hero-sub" data-i18n="hero_sub">AURA brings thousands of Tamil, English, and regional language books to your fingertips — free, beautiful, and always accessible.</p>
+    <div class="hero-cta">
+      <a href="#featured" class="btn-primary" data-i18n="hero_cta1">Explore Books</a>
+      <a href="#tamil" class="btn-outline" data-i18n="hero_cta2">Tamil Library</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">48K+</div>
+        <div class="stat-lbl" data-i18n="stat_books">Books</div>
+      </div>
+      <div>
+        <div class="stat-num">12K+</div>
+        <div class="stat-lbl" data-i18n="stat_tamil">Tamil Titles</div>
+      </div>
+      <div>
+        <div class="stat-num">1.2M</div>
+        <div class="stat-lbl" data-i18n="stat_readers">Readers</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="book-stack">
+      <div class="book-card">
+        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=90" alt="Book" />
+      </div>
+      <div class="book-card">
+        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&q=90" alt="Book" />
+      </div>
+      <div class="book-card">
+        <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&q=90" alt="Book" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ─────────────────────────────────────── -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">Tamil Literature</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">தமிழ் இலக்கியம்</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">English Classics</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Free PDF Download</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Sangam Poetry</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">சங்க இலக்கியம்</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Digital Library</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Hindi Books</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Tamil Nadu Heritage</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Free Access</span><span class="marquee-dot">◆</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Tamil Literature</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">தமிழ் இலக்கியம்</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">English Classics</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Free PDF Download</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Sangam Poetry</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">சங்க இலக்கியம்</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Digital Library</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Hindi Books</span><span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<!-- ── FEATURED BOOKS ──────────────────────────────── -->
+<section id="featured">
+  <div class="reveal">
+    <div class="section-label" data-i18n="feat_label">Featured Collection</div>
+    <h2 class="section-title" data-i18n="feat_title">Curated For You</h2>
+    <p class="section-desc" data-i18n="feat_desc">Hand-picked titles spanning classical Tamil literature, modern fiction, philosophy, science, and world classics.</p>
+  </div>
+  <div class="books-filter reveal">
+    <button class="filter-btn active" onclick="filterBooks('all', this)" data-i18n="filter_all">All</button>
+    <button class="filter-btn" onclick="filterBooks('tamil', this)" data-i18n="filter_tamil">Tamil</button>
+    <button class="filter-btn" onclick="filterBooks('english', this)" data-i18n="filter_english">English</button>
+    <button class="filter-btn" onclick="filterBooks('hindi', this)" data-i18n="filter_hindi">Hindi</button>
+    <button class="filter-btn" onclick="filterBooks('classical', this)" data-i18n="filter_classical">Classical</button>
+  </div>
+  <div class="books-grid" id="booksGrid">
+    <!-- Dynamically rendered by JS -->
+  </div>
+</section>
+
+<!-- ── CATEGORIES ──────────────────────────────────── -->
+<section id="categories">
+  <div class="reveal">
+    <div class="section-label" data-i18n="cat_label">Browse By Genre</div>
+    <h2 class="section-title" data-i18n="cat_title">Explore Categories</h2>
+  </div>
+  <div class="cat-grid reveal">
+    <div class="cat-card" onclick="filterBooks('tamil')">
+      <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=90" alt="Tamil Literature" />
+      <div class="cat-info">
+        <div class="cat-name">Tamil Literature</div>
+        <div class="cat-count">12,400+ books</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&q=90" alt="Classical" />
+      <div class="cat-info">
+        <div class="cat-name">Classical Texts</div>
+        <div class="cat-count">3,200+ books</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&q=90" alt="Fiction" />
+      <div class="cat-info">
+        <div class="cat-name">Fiction & Novels</div>
+        <div class="cat-count">8,700+ books</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=800&q=90" alt="Philosophy" />
+      <div class="cat-info">
+        <div class="cat-name">Philosophy</div>
+        <div class="cat-count">2,100+ books</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=90" alt="Science" />
+      <div class="cat-info">
+        <div class="cat-name">Science & Tech</div>
+        <div class="cat-count">5,600+ books</div>
+      </div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=800&q=90" alt="Poetry" />
+      <div class="cat-info">
+        <div class="cat-name">Poetry & Verse</div>
+        <div class="cat-count">4,300+ books</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TAMIL SPOTLIGHT ─────────────────────────────── -->
+<section id="tamil">
+  <div class="reveal">
+    <div class="section-label">தமிழ் நூலகம்</div>
+    <h2 class="section-title" data-i18n="tamil_title">Tamil Literary Treasures</h2>
+    <p class="section-desc" data-i18n="tamil_desc">From ancient Sangam poetry to modern masterpieces — the richest collection of Tamil literature online, free forever.</p>
+  </div>
+  <div class="tamil-scroll reveal" id="tamilScroll">
+    <!-- JS rendered -->
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ──────────────────────────────────── -->
+<section id="experience">
+  <div class="exp-visual reveal">
+    <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&q=90" alt="Reading" class="exp-img-main" />
+    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&q=90" alt="Library" class="exp-img-accent" />
+    <div class="exp-badge">
+      <span class="exp-badge-num">100%</span>
+      <span class="exp-badge-lbl">Free</span>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="section-label" data-i18n="exp_label">Why AURA</div>
+    <h2 class="section-title" data-i18n="exp_title">A New Kind of Library Experience</h2>
+    <p class="section-desc" data-i18n="exp_desc">AURA is built for readers who believe knowledge should have no barriers — no fees, no borders, no limits.</p>
+    <ul class="features-list">
+      <li class="feat-item">
+        <div class="feat-icon"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=100&q=90" alt="" /></div>
+        <div>
+          <div class="feat-title" data-i18n="feat1_title">Read Online Instantly</div>
+          <div class="feat-desc" data-i18n="feat1_desc">Open any book directly in your browser with our beautiful in-page reader. No app required.</div>
+        </div>
+      </li>
+      <li class="feat-item">
+        <div class="feat-icon"><img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=100&q=90" alt="" /></div>
+        <div>
+          <div class="feat-title" data-i18n="feat2_title">Download as PDF</div>
+          <div class="feat-desc" data-i18n="feat2_desc">Every title available as a high-quality PDF for offline reading on any device.</div>
+        </div>
+      </li>
+      <li class="feat-item">
+        <div class="feat-icon"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=100&q=90" alt="" /></div>
+        <div>
+          <div class="feat-title" data-i18n="feat3_title">Multi-Language Support</div>
+          <div class="feat-desc" data-i18n="feat3_desc">Tamil, English, Hindi, Sanskrit, Malayalam and more — AURA speaks every language.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── NEW ARRIVALS ────────────────────────────────── -->
+<section id="new-arrivals">
+  <div class="reveal">
+    <div class="section-label" data-i18n="arr_label">Just Added</div>
+    <h2 class="section-title" data-i18n="arr_title">New Arrivals</h2>
+  </div>
+  <div class="arrivals-grid reveal">
+    <div class="arrival-main">
+      <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=900&q=90" alt="New arrival" />
+      <div class="arrival-main-info">
+        <div class="arrival-main-tag">Tamil · Novel</div>
+        <div class="arrival-main-title">கல்கியின் சிறந்த சிறுகதைகள்</div>
+      </div>
+    </div>
+    <div class="arrival-side">
+      <div class="arrival-card">
+        <img src="https://images.unsplash.com/photo-1476275466078-4007374efbbe?w=200&q=90" class="arrival-thumb" alt="Book" />
+        <div class="arrival-info">
+          <div class="book-lang">Tamil</div>
+          <div class="book-name">ஐந்திணை மாலை</div>
+          <div class="book-author">Classical Tamil Poetry</div>
+        </div>
+      </div>
+      <div class="arrival-card">
+        <img src="https://images.unsplash.com/photo-1490633874781-1c63cc424610?w=200&q=90" class="arrival-thumb" alt="Book" />
+        <div class="arrival-info">
+          <div class="book-lang">English</div>
+          <div class="book-name">One Hundred Years of Solitude</div>
+          <div class="book-author">Gabriel García Márquez</div>
+        </div>
+      </div>
+      <div class="arrival-card">
+        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=200&q=90" class="arrival-thumb" alt="Book" />
+        <div class="arrival-info">
+          <div class="book-lang">Tamil</div>
+          <div class="book-name">சிலப்பதிகாரம்</div>
+          <div class="book-author">இளங்கோ அடிகள்</div>
+        </div>
+      </div>
+    </div>
+    <div class="arrival-side">
+      <div class="arrival-card">
+        <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?w=200&q=90" class="arrival-thumb" alt="Book" />
+        <div class="arrival-info">
+          <div class="book-lang">Hindi</div>
+          <div class="book-name">Godan</div>
+          <div class="book-author">Munshi Premchand</div>
+        </div>
+      </div>
+      <div class="arrival-card">
+        <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=200&q=90" class="arrival-thumb" alt="Book" />
+        <div class="arrival-info">
+          <div class="book-lang">Tamil</div>
+          <div class="book-name">நான் ஏன் எழுதுகிறேன்</div>
+          <div class="book-author">அ. மார்க்ஸ்</div>
+        </div>
+      </div>
+      <div class="arrival-card">
+        <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=200&q=90" class="arrival-thumb" alt="Book" />
+        <div class="arrival-info">
+          <div class="book-lang">English</div>
+          <div class="book-name">Crime and Punishment</div>
+          <div class="book-author">Fyodor Dostoevsky</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AUTHORS ─────────────────────────────────────── -->
+<section id="authors">
+  <div class="reveal">
+    <div class="section-label" data-i18n="auth_label">Literary Voices</div>
+    <h2 class="section-title" data-i18n="auth_title">Celebrated Authors</h2>
+  </div>
+  <div class="authors-grid reveal">
+    <div class="author-card">
+      <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=300&q=90" alt="Author" class="author-photo" />
+      <div class="author-name">கல்கி கிருஷ்ணமூர்த்தி</div>
+      <div class="author-books">48 books</div>
+      <span class="author-lang">Tamil</span>
+    </div>
+    <div class="author-card">
+      <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=300&q=90" alt="Author" class="author-photo" />
+      <div class="author-name">Rabindranath Tagore</div>
+      <div class="author-books">230 books</div>
+      <span class="author-lang">Multi-lang</span>
+    </div>
+    <div class="author-card">
+      <img src="https://images.unsplash.com/photo-1569913486515-b74bf7751574?w=300&q=90" alt="Author" class="author-photo" />
+      <div class="author-name">சுந்தர ராமசாமி</div>
+      <div class="author-books">32 books</div>
+      <span class="author-lang">Tamil</span>
+    </div>
+    <div class="author-card">
+      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&q=90" alt="Author" class="author-photo" />
+      <div class="author-name">Kamala Surayya</div>
+      <div class="author-books">74 books</div>
+      <span class="author-lang">Malayalam</span>
+    </div>
+    <div class="author-card">
+      <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=300&q=90" alt="Author" class="author-photo" />
+      <div class="author-name">Leo Tolstoy</div>
+      <div class="author-books">186 books</div>
+      <span class="author-lang">English</span>
+    </div>
+    <div class="author-card">
+      <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=300&q=90" alt="Author" class="author-photo" />
+      <div class="author-name">புதுமைப்பித்தன்</div>
+      <div class="author-books">61 books</div>
+      <span class="author-lang">Tamil</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── READER PREVIEW ──────────────────────────────── -->
+<section id="reader-preview">
+  <div class="section-label">AURA Reader</div>
+  <h2 class="section-title" data-i18n="reader_title">Read Beautifully, Anywhere</h2>
+  <p class="section-desc" data-i18n="reader_desc">Our built-in PDF reader delivers a comfortable, distraction-free reading experience on every screen.</p>
+  <div class="preview-frame reveal">
+    <div class="preview-toolbar">
+      <div class="toolbar-dot"></div>
+      <div class="toolbar-dot"></div>
+      <div class="toolbar-dot"></div>
+      <div class="toolbar-title">AURA Reader — Ponniyin Selvan · Page 47 of 2400</div>
+    </div>
+    <div class="preview-pages">
+      <div class="preview-page">
+        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=90" alt="Reading page" />
+      </div>
+      <div class="preview-page">
+        <img src="https://images.unsplash.com/photo-1533327325824-76851d61c5a4?w=600&q=90" alt="Reading page" />
+      </div>
+    </div>
+    <div class="preview-controls">
+      <button class="ctrl-btn">◀◀</button>
+      <button class="ctrl-btn">◀</button>
+      <span class="page-info">Page 47 / 2400</span>
+      <button class="ctrl-btn">▶</button>
+      <button class="ctrl-btn">▶▶</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ────────────────────────────────── -->
+<section id="testimonials">
+  <div class="reveal">
+    <div class="section-label" data-i18n="testi_label">Reader Stories</div>
+    <h2 class="section-title" data-i18n="testi_title">What Our Readers Say</h2>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">AURA has completely transformed how I access Tamil literature. I found Ponniyin Selvan in minutes — free and beautifully rendered!</p>
+      <div class="testi-author">
+        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=90" class="testi-avatar" alt="Reader" />
+        <div>
+          <div class="testi-name">Arjun Selvam</div>
+          <div class="testi-role">Chennai · Tamil Literature Enthusiast</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">As a researcher, having free access to Sanskrit and Tamil classical texts in PDF is invaluable. AURA is a treasure.</p>
+      <div class="testi-author">
+        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b77c?w=100&q=90" class="testi-avatar" alt="Reader" />
+        <div>
+          <div class="testi-name">Dr. Priya Venkataraman</div>
+          <div class="testi-role">Madurai · University Professor</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The design is so clean, reading feels like a real bookstore experience. I discovered so many new Tamil novels here!</p>
+      <div class="testi-author">
+        <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=90" class="testi-avatar" alt="Reader" />
+        <div>
+          <div class="testi-name">Karthik Murugan</div>
+          <div class="testi-role">Coimbatore · Book Blogger</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ──────────────────────────────────── -->
+<section id="newsletter">
+  <div class="newsletter-inner reveal">
+    <div class="section-label" data-i18n="nl_label">Stay Updated</div>
+    <h2 class="section-title" data-i18n="nl_title">New Books Every Week</h2>
+    <p class="section-desc" data-i18n="nl_desc">Subscribe to get curated Tamil and multilingual book recommendations delivered to your inbox.</p>
+    <div class="email-form">
+      <input type="email" class="email-input" placeholder="your@email.com" />
+      <button class="email-submit" data-i18n="nl_btn">Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#">AUR<span>A</span></a>
+      <p>The world's most beautiful Tamil digital library. Free, open, and forever illuminating minds across the globe.</p>
+    </div>
+    <div>
+      <div class="footer-heading" data-i18n="foot_lib">Library</div>
+      <ul class="footer-links">
+        <li><a href="#featured">All Books</a></li>
+        <li><a href="#tamil">Tamil Collection</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading" data-i18n="foot_lang">Languages</div>
+      <ul class="footer-links">
+        <li><a href="#">Tamil (தமிழ்)</a></li>
+        <li><a href="#">English</a></li>
+        <li><a href="#">Hindi (हिंदी)</a></li>
+        <li><a href="#">Sanskrit</a></li>
+        <li><a href="#">Malayalam</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading" data-i18n="foot_info">Information</div>
+      <ul class="footer-links">
+        <li><a href="#">About AURA</a></li>
+        <li><a href="#">Contribute</a></li>
+        <li><a href="#">API Access</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 AURA Library. Open Knowledge for All.</div>
+    <div class="footer-socials">
+      <a href="#">Twitter</a>
+      <a href="#">Instagram</a>
+      <a href="#">GitHub</a>
+      <a href="#">RSS</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ─────────────────────────────────────── -->
+<script>
+/* ── DATA ─────────────────────────────────────────── */
+const BOOKS = [
+  {
+    id:1, lang:'tamil', category:'classical',
+    title:'பொன்னியின் செல்வன்',
+    author:'கல்கி கிருஷ்ணமூர்த்தி',
+    rating:'★★★★★', pages:'2400 pages',
+    badge:'Bestseller',
+    desc:'The epic historical novel set in the Chola Empire, following the adventures of Vandiyathevan and the royal family of Raja Raja Chola.',
+    img:'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500&q=90',
+    pdf:'/downloads/ponniyin-selvan.pdf'
+  },
+  {
+    id:2, lang:'tamil', category:'classical',
+    title:'சிலப்பதிகாரம்',
+    author:'இளங்கோ அடிகள்',
+    rating:'★★★★★', pages:'480 pages',
+    badge:'Classic',
+    desc:'One of the Five Great Epics of Tamil literature, telling the story of Kannagi and Kovalan.',
+    img:'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500&q=90',
+    pdf:'/downloads/silapathikaram.pdf'
+  },
+  {
+    id:3, lang:'tamil', category:'fiction',
+    title:'அலை ஓசை',
+    author:'கல்கி கிருஷ்ணமூர்த்தி',
+    rating:'★★★★☆', pages:'560 pages',
+    badge:null,
+    desc:'A romantic novel about the lives and loves of people in coastal Tamil Nadu.',
+    img:'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500&q=90',
+    pdf:'/downloads/alai-osai.pdf'
+  },
+  {
+    id:4, lang:'english', category:'fiction',
+    title:'Pride and Prejudice',
+    author:'Jane Austen',
+    rating:'★★★★★', pages:'432 pages',
+    badge:'Classic',
+    desc:'The masterpiece of English literature following the Bennet family navigating love, class, and marriage in Regency-era England.',
+    img:'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&q=90',
+    pdf:'/downloads/pride-and-prejudice.pdf'
+  },
+  {
+    id:5, lang:'tamil', category:'philosophy',
+    title:'திருக்குறள்',
+    author:'திருவள்ளுவர்',
+    rating:'★★★★★', pages:'320 pages',
+    badge:'Sacred Text',
+    desc:'The ancient Tamil masterwork of ethics, wisdom, and governance — 1330 couplets covering all aspects of life.',
+    img:'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=500&q=90',
+    pdf:'/downloads/thirukkural.pdf'
+  },
+  {
+    id:6, lang:'english', category:'fiction',
+    title:'Crime and Punishment',
+    author:'Fyodor Dostoevsky',
+    rating:'★★★★★', pages:'671 pages',
+    badge:null,
+    desc:'A psychological novel exploring the moral dilemmas of a young student who commits murder.',
+    img:'https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=500&q=90',
+    pdf:'/downloads/crime-punishment.pdf'
+  },
+  {
+    id:7, lang:'hindi', category:'fiction',
+    title:'गोदान',
+    author:'मुंशी प्रेमचंद',
+    rating:'★★★★★', pages:'336 pages',
+    badge:'Hindi Classic',
+    desc:'A masterpiece of Hindi literature depicting the plight of Indian peasants in pre-independence rural India.',
+    img:'https://images.unsplash.com/photo-1589998059171-988d887df646?w=500&q=90',
+    pdf:'/downloads/godan.pdf'
+  },
+  {
+    id:8, lang:'tamil', category:'fiction',
+    title:'மணிமேகலை',
+    author:'சீத்தலைச் சாத்தனார்',
+    rating:'★★★★☆', pages:'400 pages',
+    badge:'Epic',
+    desc:'A Tamil Buddhist epic that serves as a sequel to Silapathikaram, following Manimekalai on her spiritual journey.',
+    img:'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=500&q=90',
+    pdf:'/downloads/manimekalai.pdf'
+  },
+  {
+    id:9, lang:'english', category:'classical',
+    title:'War and Peace',
+    author:'Leo Tolstoy',
+    rating:'★★★★★', pages:'1225 pages',
+    badge:'Masterpiece',
+    desc:'Tolstoy\'s panoramic novel of Russian society during the Napoleonic era, following five aristocratic families.',
+    img:'https://images.unsplash.com/photo-1476275466078-4007374efbbe?w=500&q=90',
+    pdf:'/downloads/war-peace.pdf'
+  },
+  {
+    id:10, lang:'tamil', category:'fiction',
+    title:'வேர்கள்',
+    author:'ஜெயகாந்தன்',
+    rating:'★★★★☆', pages:'280 pages',
+    badge:null,
+    desc:'A powerful Tamil novel exploring social realism and the lives of ordinary people in urban Tamil Nadu.',
+    img:'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=500&q=90',
+    pdf:'/downloads/veerkal.pdf'
+  },
+  {
+    id:11, lang:'hindi', category:'poetry',
+    title:'रामचरितमानस',
+    author:'तुलसीदास',
+    rating:'★★★★★', pages:'880 pages',
+    badge:'Sacred',
+    desc:'The epic retelling of the Ramayana in Awadhi Hindi by poet-saint Tulsidas, one of the most beloved Hindu scriptures.',
+    img:'https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=500&q=90',
+    pdf:'/downloads/ramcharitmanas.pdf'
+  },
+  {
+    id:12, lang:'tamil', category:'poetry',
+    title:'குறுந்தொகை',
+    author:'பல்வேறு புலவர்கள்',
+    rating:'★★★★★', pages:'240 pages',
+    badge:'Sangam',
+    desc:'An anthology of 401 short poems from the Sangam period, celebrating love in its many forms across the Tamil landscape.',
+    img:'https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=500&q=90',
+    pdf:'/downloads/kurunthogai.pdf'
+  }
+];
+
+const TAMIL_BOOKS = [
+  { title:'பொன்னியின் செல்வன்', author:'கல்கி', img:'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=90', pdf:'/downloads/ponniyin-selvan.pdf' },
+  { title:'சிலப்பதிகாரம்', author:'இளங்கோ அடிகள்', img:'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&q=90', pdf:'/downloads/silapathikaram.pdf' },
+  { title:'திருக்குறள்', author:'திருவள்ளுவர்', img:'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&q=90', pdf:'/downloads/thirukkural.pdf' },
+  { title:'மணிமேகலை', author:'சீத்தலைச் சாத்தனார்', img:'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&q=90', pdf:'/downloads/manimekalai.pdf' },
+  { title:'குறுந்தொகை', author:'பல்வேறு புலவர்கள்', img:'https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?w=400&q=90', pdf:'/downloads/kurunthogai.pdf' },
+  { title:'அலை ஓசை', author:'கல்கி', img:'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&q=90', pdf:'/downloads/alai-osai.pdf' },
+  { title:'வேர்கள்', author:'ஜெயகாந்தன்', img:'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&q=90', pdf:'/downloads/veerkal.pdf' },
+  { title:'கம்பராமாயணம்', author:'கம்பர்', img:'https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=400&q=90', pdf:'/downloads/kambaramayanam.pdf' },
+];
+
+/* ── I18N ─────────────────────────────────────────── */
+const LANGS = {
+  en: {
+    nav_books:'Books', nav_categories:'Categories', nav_tamil:'Tamil Library', nav_authors:'Authors', nav_about:'About', nav_browse:'Browse',
+    hero_tag:'Digital Library Platform', hero_tamil:'Knowledge Illuminated', hero_sub:'AURA brings thousands of Tamil, English, and regional language books to your fingertips — free, beautiful, and always accessible.',
+    hero_cta1:'Explore Books', hero_cta2:'Tamil Library',
+    stat_books:'Books', stat_tamil:'Tamil Titles', stat_readers:'Readers',
+    feat_label:'Featured Collection', feat_title:'Curated For You', feat_desc:'Hand-picked titles spanning classical Tamil literature, modern fiction, philosophy, science, and world classics.',
+    filter_all:'All', filter_tamil:'Tamil', filter_english:'English', filter_hindi:'Hindi', filter_classical:'Classical',
+    cat_label:'Browse By Genre', cat_title:'Explore Categories',
+    tamil_title:'Tamil Literary Treasures', tamil_desc:'From ancient Sangam poetry to modern masterpieces — the richest collection of Tamil literature online, free forever.',
+    exp_label:'Why AURA', exp_title:'A New Kind of Library Experience', exp_desc:'AURA is built for readers who believe knowledge should have no barriers.',
+    feat1_title:'Read Online Instantly', feat1_desc:'Open any book directly in your browser. No app required.',
+    feat2_title:'Download as PDF', feat2_desc:'Every title available as high-quality PDF for offline reading.',
+    feat3_title:'Multi-Language Support', feat3_desc:'Tamil, English, Hindi, Sanskrit and more.',
+    arr_label:'Just Added', arr_title:'New Arrivals',
+    auth_label:'Literary Voices', auth_title:'Celebrated Authors',
+    reader_title:'Read Beautifully, Anywhere', reader_desc:'Our built-in PDF reader delivers a comfortable, distraction-free reading experience.',
+    testi_label:'Reader Stories', testi_title:'What Our Readers Say',
+    nl_label:'Stay Updated', nl_title:'New Books Every Week', nl_desc:'Subscribe to get curated book recommendations delivered to your inbox.', nl_btn:'Subscribe',
+    foot_lib:'Library', foot_lang:'Languages', foot_info:'Information'
+  },
+  ta: {
+    nav_books:'நூல்கள்', nav_categories:'வகைகள்', nav_tamil:'தமிழ் நூலகம்', nav_authors:'எழுத்தாளர்கள்', nav_about:'பற்றி', nav_browse:'தேட',
+    hero_tag:'டிஜிட்டல் நூலகம்', hero_tamil:'அறிவின் வெளிச்சம்', hero_sub:'AURA — ஆயிரக்கணக்கான தமிழ், ஆங்கிலம் மற்றும் பிறமொழி நூல்களை உங்கள் கைகளில் கொண்டு வருகிறது.',
+    hero_cta1:'நூல்களை ஆராய', hero_cta2:'தமிழ் நூலகம்',
+    stat_books:'நூல்கள்', stat_tamil:'தமிழ் நூல்கள்', stat_readers:'வாசகர்கள்',
+    feat_label:'சிறந்த தொகுப்பு', feat_title:'உங்களுக்காக தேர்ந்தெடுக்கப்பட்டது', feat_desc:'செவ்வியல் தமிழ் இலக்கியம், நவீன புனைகதை, தத்துவம், அறிவியல் மற்றும் உலக நூல்கள்.',
+    filter_all:'அனைத்தும்', filter_tamil:'தமிழ்', filter_english:'ஆங்கிலம்', filter_hindi:'இந்தி', filter_classical:'செவ்வியல்',
+    cat_label:'வகை வாரியாக தேட', cat_title:'வகைகளை ஆராயுங்கள்',
+    tamil_title:'தமிழ் இலக்கிய கருவூலம்', tamil_desc:'சங்க கவிதைகள் முதல் நவீன நாவல்கள் வரை — இணையத்தில் மிகச் செழுமையான தமிழ் இலக்கியத் தொகுப்பு.',
+    exp_label:'AURA ஏன்?', exp_title:'ஒரு புதிய நூலக அனுபவம்', exp_desc:'அறிவுக்கு எந்த தடையும் இருக்கக்கூடாது என்று நம்பும் வாசகர்களுக்காக AURA உருவாக்கப்பட்டது.',
+    feat1_title:'உடனடியாக ஆன்லைனில் படிக்கவும்', feat1_desc:'எந்த நூலையும் உங்கள் உலாவியில் நேரடியாக திறக்கவும்.',
+    feat2_title:'PDF ஆக பதிவிறக்கவும்', feat2_desc:'அனைத்து நூல்களும் உயர்தர PDF ஆக கிடைக்கும்.',
+    feat3_title:'பல மொழி ஆதரவு', feat3_desc:'தமிழ், ஆங்கிலம், இந்தி, சமஸ்கிருதம் மற்றும் பலவும்.',
+    arr_label:'புதிதாக சேர்க்கப்பட்டது', arr_title:'புதிய வருகைகள்',
+    auth_label:'இலக்கிய குரல்கள்', auth_title:'புகழ்பெற்ற எழுத்தாளர்கள்',
+    reader_title:'எங்கும் அழகாக படிக்கவும்', reader_desc:'எமது PDF வாசகர் ஒவ்வொரு திரையிலும் சௌகரியமான வாசிப்பு அனுபவம் தருகிறது.',
+    testi_label:'வாசகர் கதைகள்', testi_title:'எமது வாசகர்கள் சொல்வது',
+    nl_label:'புதுப்பிப்புகளை பெறுங்கள்', nl_title:'வாரந்தோறும் புதிய நூல்கள்', nl_desc:'தொகுக்கப்பட்ட நூல் பரிந்துரைகளை உங்கள் மின்னஞ்சலில் பெறவும்.', nl_btn:'சந்தா',
+    foot_lib:'நூலகம்', foot_lang:'மொழிகள்', foot_info:'தகவல்'
+  },
+  hi: {
+    nav_books:'पुस्तकें', nav_categories:'श्रेणियाँ', nav_tamil:'तमिल पुस्तकालय', nav_authors:'लेखक', nav_about:'के बारे में', nav_browse:'ब्राउज़',
+    hero_tag:'डिजिटल पुस्तकालय', hero_tamil:'ज्ञान का प्रकाश', hero_sub:'AURA हजारों तमिल, अंग्रेजी और क्षेत्रीय भाषाओं की पुस्तकें आपकी उंगलियों पर लाता है।',
+    hero_cta1:'पुस्तकें खोजें', hero_cta2:'तमिल पुस्तकालय',
+    stat_books:'पुस्तकें', stat_tamil:'तमिल शीर्षक', stat_readers:'पाठक',
+    feat_label:'विशेष संग्रह', feat_title:'आपके लिए चुना गया', feat_desc:'तमिल साहित्य, आधुनिक उपन्यास, दर्शन और विश्व क्लासिक्स।',
+    filter_all:'सभी', filter_tamil:'तमिल', filter_english:'अंग्रेज़ी', filter_hindi:'हिंदी', filter_classical:'शास्त्रीय',
+    cat_label:'शैली अनुसार', cat_title:'श्रेणियाँ',
+    tamil_title:'तमिल साहित्यिक खजाना', tamil_desc:'संगम कविता से आधुनिक उपन्यास तक।',
+    exp_label:'AURA क्यों?', exp_title:'एक नई पुस्तकालय अनुभव', exp_desc:'AURA उन पाठकों के लिए बनाया गया है जो मानते हैं कि ज्ञान में कोई बाधा नहीं होनी चाहिए।',
+    feat1_title:'तुरंत ऑनलाइन पढ़ें', feat1_desc:'अपने ब्राउज़र में सीधे कोई भी पुस्तक खोलें।',
+    feat2_title:'PDF डाउनलोड करें', feat2_desc:'सभी शीर्षक उच्च गुणवत्ता PDF में उपलब्ध।',
+    feat3_title:'बहु-भाषा समर्थन', feat3_desc:'तमिल, अंग्रेज़ी, हिंदी, संस्कृत और अधिक।',
+    arr_label:'नया जोड़ा गया', arr_title:'नई आगमन',
+    auth_label:'साहित्यिक आवाज़ें', auth_title:'प्रसिद्ध लेखक',
+    reader_title:'कहीं भी खूबसूरती से पढ़ें', reader_desc:'हमारा PDF रीडर हर स्क्रीन पर आरामदायक पढ़ने का अनुभव देता है।',
+    testi_label:'पाठक की कहानियाँ', testi_title:'हमारे पाठक क्या कहते हैं',
+    nl_label:'अपडेट रहें', nl_title:'हर हफ्ते नई पुस्तकें', nl_desc:'क्यूरेटेड पुस्तक सिफारिशें अपने इनबॉक्स में पाएं।', nl_btn:'सदस्यता',
+    foot_lib:'पुस्तकालय', foot_lang:'भाषाएँ', foot_info:'जानकारी'
+  }
+};
+
+let currentLang = 'ta';
+let currentFilter = 'all';
+let currentBook = null;
+
+/* ── RENDER BOOKS ─────────────────────────────────── */
+function renderBooks(filter) {
+  const grid = document.getElementById('booksGrid');
+  const filtered = filter === 'all' ? BOOKS : BOOKS.filter(b => b.lang === filter || b.category === filter);
+  grid.innerHTML = filtered.map(book => `
+    <div class="book-item" onclick="openModal(${book.id})">
+      <div class="book-cover">
+        <img src="${book.img}" alt="${book.title}" loading="lazy" />
+        ${book.badge ? `<div class="book-badge">${book.badge}</div>` : ''}
+        <div class="book-overlay">
+          <button class="overlay-btn" onclick="event.stopPropagation();openModal(${book.id})">Preview</button>
+          <button class="overlay-btn dl" onclick="event.stopPropagation();downloadPDF('${book.pdf}','${book.title}')">Download PDF</button>
+        </div>
+      </div>
+      <div class="book-meta">
+        <div class="book-lang">${book.lang.toUpperCase()}</div>
+        <div class="book-name">${book.title}</div>
+        <div class="book-author">${book.author}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTamilScroll() {
+  const el = document.getElementById('tamilScroll');
+  el.innerHTML = TAMIL_BOOKS.map(b => `
+    <div class="tamil-book">
+      <div class="tamil-cover"><img src="${b.img}" alt="${b.title}" loading="lazy" /></div>
+      <div class="tamil-meta">
+        <div class="tamil-title">${b.title}</div>
+        <div class="tamil-author">${b.author}</div>
+        <button class="tamil-dl" onclick="downloadPDF('${b.pdf}','${b.title}')">Download PDF ↓</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── FILTER ───────────────────────────────────────── */
+function filterBooks(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderBooks(filter);
+  if (!btn) {
+    document.getElementById('featured').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+/* ── MODAL ────────────────────────────────────────── */
+function openModal(id) {
+  const book = BOOKS.find(b => b.id === id);
+  if (!book) return;
+  currentBook = book;
+  document.getElementById('modalImg').src = book.img;
+  document.getElementById('modalLang').textContent = book.lang.toUpperCase();
+  document.getElementById('modalTitle').textContent = book.title;
+  document.getElementById('modalAuthor').textContent = book.author;
+  document.getElementById('modalRating').textContent = book.rating;
+  document.getElementById('modalPages').textContent = book.pages;
+  document.getElementById('modalDesc').textContent = book.desc;
+  document.getElementById('bookModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('bookModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function readBook() {
+  alert('Opening AURA Reader… (In production, this opens the inline PDF viewer)');
+  closeModal();
+}
+function downloadBook() {
+  if (currentBook) downloadPDF(currentBook.pdf, currentBook.title);
+}
+
+/* ── PDF DOWNLOAD ─────────────────────────────────── */
+function downloadPDF(path, title) {
+  // In production, this triggers the actual file download via server
+  const a = document.createElement('a');
+  a.href = path;
+  a.download = title.replace(/\s+/g, '_') + '.pdf';
+  a.click();
+}
+
+/* ── SEARCH ───────────────────────────────────────── */
+function toggleSearch() {
+  const ov = document.getElementById('searchOverlay');
+  ov.classList.toggle('open');
+  if (ov.classList.contains('open')) {
+    document.getElementById('searchInput').focus();
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+
+/* ── I18N ─────────────────────────────────────────── */
+function setLang(lang) {
+  currentLang = lang;
+  const data = LANGS[lang] || LANGS['en'];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (data[key]) el.textContent = data[key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+/* ── SCROLL REVEAL ────────────────────────────────── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ── NAV SHADOW ON SCROLL ─────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').style.boxShadow =
+    window.scrollY > 40 ? '0 4px 24px rgba(0,0,0,0.07)' : 'none';
+});
+
+/* ── CLOSE MODAL ON OVERLAY CLICK ────────────────── */
+document.getElementById('bookModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('searchOverlay').addEventListener('click', function(e) {
+  if (e.target === this) toggleSearch();
+});
+
+/* ── INIT ─────────────────────────────────────────── */
+renderBooks('all');
+renderTamilScroll();
+setLang('ta');
+// Re-run reveal for dynamically rendered items
+setTimeout(() => {
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}, 100);
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aura-library-deployment
+  labels:
+    project: aura-library
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      project: aura-library
+  template:
+    metadata:
+      labels:
+        project: aura-library
+    spec:
+      containers:
+        - name: aura-library-container
+          image: sriramsrb/aura-library:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "100m"
+            limits:
+              memory: "100Mi"
+              cpu: "200m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: aura-library-service
+  labels:
+    project: aura-library
+spec:
+  type: NodePort
+  selector:
+    project: aura-library
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 30080
