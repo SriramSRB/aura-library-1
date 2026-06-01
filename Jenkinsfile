@@ -9,14 +9,14 @@ pipeline {
         }
         stage ('2. Build Docker Image') {
             steps {
-                sh 'docker build -t aura-library:latest .'
+                sh 'docker build -t aura-library-1:latest .'
             }
         }
         stage ('3. Push docker image to dockerhub') {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub', variable: 'DOCKER_PWD')]) {
                     sh 'echo "$DOCKER_PWD" | docker login -u sriramsrb --password-stdin'
-                    sh 'docker push sriramsrb/aura-library:latest'
+                    sh 'docker push sriramsrb/aura-library-1:latest'
                 }
             }
         }
