@@ -9,7 +9,7 @@ pipeline {
         }
         stage ('2. Build Docker Image') {
             steps {
-                sh 'docker build -t aura-library-1:latest .'
+                sh 'docker build -t sriramsrb/aura-library-1:latest .'
             }
         }
         stage ('3. Push docker image to dockerhub') {
