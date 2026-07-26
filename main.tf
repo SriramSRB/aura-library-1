@@ -112,14 +112,3 @@ resource "aws_instance" "aura-library_key" {
 
     tags = { Name = "aura-library-server" }
 }
-
-resource "aws_eip" "aura-library_eip" {
-    instance = aws_instance.aura-library_key.id
-    domain   = "vpc"
-    tags     = { Name = "aura-library-eip" }
-}
-
-output "elastic_ip" {
-    value       = aws_eip.aura-library_eip.public_ip
-    description = "Fixed public IP - will never change on restart"
-}
